@@ -198,7 +198,7 @@ rcParams["font.family"] = "serif"  #
   axs.set_aspect(1)
   cbar[:ax][:tick_params](labelsize=30)
 
-  PyPlot.savefig(joinpath("plots/contour_pressure_euler_$(Kh)x$(Kv)_$(Tf)_$(surface_flux).png"), dpi=300, bbox_inches="tight")
+  PyPlot.savefig(joinpath("results/baroclinic/contour_pressure_euler_$(Kh)x$(Kv)_$(Tf)_$(surface_flux).png"), dpi=300, bbox_inches="tight")
   close(fig)
 
   fig, axs = subplots(1, 1, figsize=(27, 20))
@@ -239,7 +239,7 @@ rcParams["font.family"] = "serif"  #
   axs.set_aspect(1)
   cbar[:ax][:tick_params](labelsize=30)
 
-  PyPlot.savefig(joinpath("plots/contour_temperature_euler_$(Kh)x$(Kv)_$(Tf)_$(surface_flux).png"), dpi=300, bbox_inches="tight")
+  PyPlot.savefig(joinpath("results/baroclinic/contour_temperature_euler_$(Kh)x$(Kv)_$(Tf)_$(surface_flux).png"), dpi=300, bbox_inches="tight")
   close(fig)
 
 
