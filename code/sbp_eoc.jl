@@ -110,10 +110,6 @@ function compute_errors_curvilinear_2d_euler(; mesh_file_name, nnodes,
     D_SBP = derivative_operator(SummationByPartsOperators.MattssonAlmquistVanDerWeide2018Accurate(),
         derivative_order=1, accuracy_order=accuracy_order,
         xmin=-1.0, xmax=1.0, N=nnodes)
-    D_SBP = derivative_operator(SummationByPartsOperators.MattssonNordström2004(),
-        derivative_order=1, accuracy_order=accuracy_order,
-        xmin=-1.0, xmax=1.0, N=nnodes)
-
 
     solver = FDSBP(D_SBP, surface_integral=SurfaceIntegralStrongForm(flux_volume_ec_combined), volume_integral=VolumeIntegralFluxDifferencing(flux_volume_ec_combined))
 
@@ -141,7 +137,7 @@ function compute_errors_curvilinear_2d_euler(; mesh_file_name, nnodes,
         SSPRK43(thread=Trixi.True());
 	    dt = 0.01,
         ode_default_options()...,
-        abstol=tol, reltol=tol, callback=CallbackSet(summary_callback, analysis_callback, alive_callback, save_solution, stepsize_callback), adaptive = false)
+        abstol=tol, reltol=tol, callback=CallbackSet(stepsize_callback), adaptive = false)
 
     analysis_callback = AnalysisCallback(semi)
     return analysis_callback(sol)
