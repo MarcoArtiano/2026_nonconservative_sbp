@@ -8,9 +8,9 @@ This repository contains information and code to reproduce the results presented
 
 ```bibtex
 @online{artiano2026nonconservative,
-  title={On Affordable High-Order Entropy-Conservative/Stable and Well-Balanced Methods for Nonconservative Hyperbolic Systems},
-  author={Artiano, Marco
-            and Ranocha, Hendrik},
+  title={{O}n Affordable High-Order Entropy-Conservative/Stable
+         and Well-Balanced Methods for Nonconservative Hyperbolic Systems},
+  author={Artiano, Marco and Ranocha, Hendrik},
   year={2026},
   month={TODO},
   eprint={TODO},
@@ -24,9 +24,9 @@ If you find these results useful, please cite the article mentioned above. If yo
 ```bibtex
 @misc{artiano2026nonconservativeRepo,
   title={Reproducibility repository for
-         "{O}n Affordable High-Order Entropy-Conservative/Stable and Well-Balanced Methods for Nonconservative Hyperbolic Systems"},
-  author={Artiano, Marco
-            and Ranocha, Hendrik},
+         "{O}n Affordable High-Order Entropy-Conservative/Stable and
+           Well-Balanced Methods for Nonconservative Hyperbolic Systems"},
+  author={Artiano, Marco and Ranocha, Hendrik},
   year={2026},
   howpublished={\url{TODO}},
   doi={TODO}
