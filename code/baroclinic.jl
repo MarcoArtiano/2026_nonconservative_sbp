@@ -138,7 +138,7 @@ function main(equations, surface_flux, volume_flux, T, filename, trees_per_cube_
 
     analysis_interval = 100
     analysis_callback = AnalysisCallback(semi, interval=analysis_interval, extra_analysis_integrals=(entropy,), save_analysis=true,
-        output_directory=pwd() * "/results/baroclinic/",
+        output_directory=joinpath(@__DIR__, "results", "baroclinic"),
         analysis_filename="data_$(polydeg)_$(trees_per_cube_face[1])x$(trees_per_cube_face[2])_$(T).dat",)
 
     alive_callback = AliveCallback(analysis_interval=analysis_interval)
@@ -167,8 +167,6 @@ function main(equations, surface_flux, volume_flux, T, filename, trees_per_cube_
 end
 
 function run_baroclinic(; T, trees_per_cube_face=(8, 4), polydeg=5, RealT=Float64)
-    # folder = pwd() * "/test_cases/baroclinic/data/"
-
     surface_flux = flux_surface_combined
     volume_flux = flux_volume_ec_combined
     equations = CompressibleEulerInternalEnergyEquationsWithGravity3D(c_p=1004,
@@ -182,7 +180,7 @@ function run_baroclinic(; T, trees_per_cube_face=(8, 4), polydeg=5, RealT=Float6
 end
 
 
-function plot_entropy(; basepath=pwd())
+function plot_entropy(; basepath=@__DIR__)
 
     filename = joinpath(basepath,
         "results/baroclinic",
@@ -195,7 +193,7 @@ function plot_entropy(; basepath=pwd())
     ylabel = L"\underline{1} \underline{\underline{M}} \underline{U} - \underline{1} \underline{\underline{M}}\underline{U}_0"
     ylabel = L"\int_M U -\int_M U_0"
     ax1 = Axis(fig[1, 1]; ylabel=ylabel, xticks=[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20],  # tick ogni giorno
-        #ytickformat=values -> [@sprintf("%.5f", v) for v in values], 
+        #ytickformat=values -> [@sprintf("%.5f", v) for v in values],
         kwargs...)
 
     lines!(ax1, data[:, 2] / 86400, data[:, end] .- data[1, end]; linewidth=3.5)

@@ -138,8 +138,8 @@ function compute_errors_curvilinear_2d_euler(; mesh_file_name, nnodes,
         save_final_solution=true)
 	stepsize_callback = StepsizeCallback(cfl = 0.01)
     sol = solve(ode,
-        SSPRK43();
-	dt = 0.01,
+        SSPRK43(thread=Trixi.True());
+	    dt = 0.01,
         ode_default_options()...,
         abstol=tol, reltol=tol, callback=CallbackSet(summary_callback, analysis_callback, alive_callback, save_solution, stepsize_callback), adaptive = false)
 

@@ -7,7 +7,7 @@ import Trixi:
     boundary_condition_slip_wall,
     have_nonconservative_terms,
     prim2cons,
-    cons2entropy, max_abs_speeds, entropy
+    cons2entropy, max_abs_speeds, entropy, energy_total
 
 # By default, Julia/LLVM does not use fused multiply-add operations (FMAs).
 # Since these FMAs can increase the performance of many numerical algorithms,
@@ -56,7 +56,7 @@ end
     k = equations.k
     h_num = 0
     for i in 0:equations.k-1
-        h_num += u_rr^(k-1-i) * u_ll^i 
+        h_num += u_rr^(k-1-i) * u_ll^i
     end
     h_num = h_num/k
 
@@ -79,21 +79,21 @@ end
     alpha = equations.alpha
     h_num_jump1 = 0
     for k in 0:(m+n)
-        h_num_jump1 += (-1)^k * u_rr^(m+n-k) * u_ll^k 
+        h_num_jump1 += (-1)^k * u_rr^(m+n-k) * u_ll^k
     end
     h_num_jump2 = 0
     for k in 0:(n-1)
-        h_num_jump2 += (-1)^k * u_rr^(n-1-k) * u_ll^k 
+        h_num_jump2 += (-1)^k * u_rr^(n-1-k) * u_ll^k
     end
     h_num_jump2 = -h_num_jump2 *(u_rr^(m+1) + u_ll^(m+1)) * 0.5f0
 
     h_num_jump2 = 0
     for k in 0:m
-	h_num_jump2 += (-1)^k * u_rr^(m-k) * u_ll^(n+k) 
+	h_num_jump2 += (-1)^k * u_rr^(m-k) * u_ll^(n+k)
     end
     h_num_jump3 = 0
     for k in 0:(n-1)
-	h_num_jump3 += (-1)^k * u_rr^(n-1-k) * u_ll^(m+1+k) 
+	h_num_jump3 += (-1)^k * u_rr^(n-1-k) * u_ll^(m+1+k)
     end
     h_num_jump = h_num_jump1 + h_num_jump2 - h_num_jump3
     h_num_jump = h_num_jump * n/(m+1)
@@ -110,11 +110,11 @@ end
 
 	m = equations.m
 	n = equations.n
-   	
+
     alpha = equations.alpha
     jump = u_rr^m - u_ll^m
-    h_num = (u_ll^n + u_rr^n)*0.5f0	
-    flux_left = alpha * h_num * jump + (1-alpha) * u_ll^n * jump 
+    h_num = (u_ll^n + u_rr^n)*0.5f0
+    flux_left = alpha * h_num * jump + (1-alpha) * u_ll^n * jump
        return SVector(-flux_left)
 end
 
@@ -130,7 +130,7 @@ end
 
 	for j in 0:(m-1)
 	flux_1 =flux_1 + u_rr^(m-1-j)*u_ll^j
-	end	
+	end
 	u_avg = 0.5f0 * (u_ll + u_rr)
 	unp1_avg = 0.5f0 * (u_ll^(n+1) + u_rr^(n+1))
 	un_avg = 0.5f0 * (u_ll^(n) + u_rr^(n))
@@ -140,9 +140,9 @@ end
 
 	for j in 0:(m+n)
 	flux_2 = flux_2 + u_rr^(m+n-j)*u_ll^j
-	end	
+	end
 	flux_2 = flux_2 * (m+1)/(m+n+1)
-        flux = -flux_1 + flux_2	
+        flux = -flux_1 + flux_2
 	return SVector(flux)
 
 end

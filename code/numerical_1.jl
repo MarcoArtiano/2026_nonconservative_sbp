@@ -8,7 +8,7 @@ include("equations/utilities.jl")
 include("equations/advection_variable_coefficient.jl")
 equations = AdvectionVariableCoefficientEquation1D()
 
-function initial_condition(x, t, equation::AdvectionVariableCoefficientEquation1D)
+function initial_condition_advection(x, t, equation::AdvectionVariableCoefficientEquation1D)
     RealT = eltype(x)
     k = 1
     a = 2 + cospi(x[1])
@@ -26,7 +26,7 @@ function run_1(polydeg)
         initial_refinement_level=5,
         n_cells_max=10_000)
 
-    semi = SemidiscretizationHyperbolic(mesh, equations, initial_condition,
+    semi = SemidiscretizationHyperbolic(mesh, equations, initial_condition_advection,
         solver)
 
     ###############################################################################
@@ -40,7 +40,7 @@ function run_1(polydeg)
     analysis_callback = AnalysisCallback(semi, interval=analysis_interval,
         extra_analysis_errors=(:l2_error_primitive,
                 :linf_error_primitive), extra_analysis_integrals = (entropy, ), save_analysis = true,
-                output_directory = pwd() * "/results/numerical_1/",
+                output_directory = joinpath(@__DIR__, "results", "numerical_1"),
                 analysis_filename = "data_$(polydeg).dat",)
 
     alive_callback = AliveCallback(analysis_interval=analysis_interval)
@@ -68,11 +68,11 @@ end
 
 using DelimitedFiles
 
-function compute_table(polydegs; basepath=pwd())
+function compute_table(polydegs; basepath=@__DIR__)
     table = zeros(length(polydegs), 3)
 
     for (i, p) in enumerate(polydegs)
-        filename = joinpath(basepath, "results/numerical_1", "data_$(p).dat")
+        filename = joinpath(basepath, "results", "numerical_1", "data_$(p).dat")
         data = readdlm(filename, skipstart=1)
 
         U = data[:, end]
