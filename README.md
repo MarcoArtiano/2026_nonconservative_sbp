@@ -1,7 +1,7 @@
 # On Affordable High-Order Entropy-Conservative/Stable and Well-Balanced Methods for Nonconservative Hyperbolic Systems
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-success.svg)](https://opensource.org/licenses/MIT)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17106781.svg)](https://zenodo.org/doi/10.5281/zenodo.17106781)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17106781.svg)](https://zenodo.org/doi/TODO)
 DOI TODO
 
 This repository contains information and code to reproduce the results presented in the article
