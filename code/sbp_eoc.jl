@@ -155,3 +155,5 @@ function compute_eoc(Ns, errors)
     end
     return eoc
 end
+
+convergence_tests_curvilinear_2d_euler()

@@ -565,7 +565,7 @@ end
     return max(abs(v_ll) + c_ll * norm_, abs(v_rr) + c_rr * norm_)
 end
 
-@inline function max_abs_speeds(u,
+@inline function Trixi.max_abs_speeds(u,
                                 equations::CompressibleEulerInternalEnergyEquationsWithGravity2D)
     rho, v1, v2, p = cons2prim(u, equations)
     c = sqrt(equations.gamma * p / rho)
