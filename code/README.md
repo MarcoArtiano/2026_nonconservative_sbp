@@ -48,3 +48,7 @@ and
 julia> include("baroclinic.jl")
 ```
 to reproduce the baroclinic instability test case.
+Run the following command to create the plot shown in the paper
+```julia
+julia> include("plot_baroclinic.jl")
+```
