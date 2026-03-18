@@ -2,7 +2,6 @@ using OrdinaryDiffEqLowStorageRK
 using OrdinaryDiffEqSSPRK
 using Trixi
 using Trixi: @muladd
-using Plots
 
 include("equations/utilities.jl")
 include("equations/advection_variable_coefficient.jl")

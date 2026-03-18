@@ -1,7 +1,6 @@
 using MuladdMacro
 using Trixi
 using TrixiShallowWater
-using Plots
 
 include("equations/escalante_saintemarie_2d.jl")
 

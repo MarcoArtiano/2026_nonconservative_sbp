@@ -2,7 +2,6 @@ using OrdinaryDiffEqLowStorageRK
 using OrdinaryDiffEqSSPRK
 using Trixi
 using Trixi: @muladd
-using Plots
 using Optim
 
 include("equations/polynomial_equations.jl")
