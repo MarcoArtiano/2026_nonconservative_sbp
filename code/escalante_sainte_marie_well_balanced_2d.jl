@@ -9,9 +9,9 @@ using OrdinaryDiffEqSSPRK
 using Trixi
 
 equations = EscalanteSainteMarieEquations2D(gravity=9.81, b0=0.1, H0 = 3.0)
-alpha1 = 1/2
-alpha2 = 1
-alpha3 = 2/3
+const alpha1 = 1/2
+const alpha2 = 1
+const alpha3 = 2/3
 
 # An initial condition with constant total water height and zero velocities to test well-balancedness.
 # Note, this routine is used to compute errors in the analysis callback but the initialization is

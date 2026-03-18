@@ -13,9 +13,9 @@ using Trixi
 # bottom topography function for a fully wet configuration
 
 equations = EscalanteSainteMarieEquations1D(gravity=1.0, b0=0.1)
-alpha1 = 1/2
-alpha2 = 1
-alpha3 = 2/3
+const alpha1 = 1/2
+const alpha2 = 1
+const alpha3 = 2/3
 
 function initial_condition_periodic(x, t, equations::EscalanteSainteMarieEquations1D)
     h = 1 + exp(sinpi(2 * x[1]))
