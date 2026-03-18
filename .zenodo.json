@@ -1,0 +1,19 @@
+{
+    "license": "MIT",
+    "title": "Reproducibility repository for On Affordable High-Order Entropy-Conservative/Stable and Well-Balanced Methods for Nonconservative Hyperbolic Systems",
+    "upload_type": "software",
+    "creators": [
+        {
+            "affiliation": "Institute of Mathematics, Johannes Gutenberg University Mainz, Germany",
+            "name": "Artiano, Marco",
+            "orcid": "0009-0009-5872-702X"
+        },
+
+        {
+            "affiliation": "Institute of Mathematics, Johannes Gutenberg University Mainz, Germany",
+            "name": "Ranocha, Hendrik",
+            "orcid": "0000-0002-3456-2277"
+        }
+    ],
+    "access_right": "open"
+}
