@@ -1,12 +1,10 @@
 using MuladdMacro
 using Trixi
 using TrixiShallowWater
-using Plots
 
 include("equations/escalante_saintemarie_1d.jl")
 
 using OrdinaryDiffEqSSPRK
-using Trixi
 
 ###############################################################################
 # semidiscretization of the shallow water equations with a discontinuous
