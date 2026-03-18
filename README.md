@@ -6,15 +6,31 @@ DOI TODO
 
 This repository contains information and code to reproduce the results presented in the article
 
-
 ```bibtex
-TODO
+@online{artiano2026nonconservative,
+  title={On Affordable High-Order Entropy-Conservative/Stable and Well-Balanced Methods for Nonconservative Hyperbolic Systems},
+  author={Artiano, Marco
+            and Ranocha, Hendrik},
+  year={2026},
+  month={TODO},
+  eprint={TODO},
+  eprinttype={arxiv},
+  eprintclass={TODO}
+}
 ```
 
 If you find these results useful, please cite the article mentioned above. If you use the implementations provided here, please also cite this repository as
 
 ```bibtex
-TODO
+@misc{artiano2026nonconservativeRepo,
+  title={Reproducibility repository for
+         "{O}n Affordable High-Order Entropy-Conservative/Stable and Well-Balanced Methods for Nonconservative Hyperbolic Systems"},
+  author={Artiano, Marco
+            and Ranocha, Hendrik},
+  year={2026},
+  howpublished={\url{TODO}},
+  doi={TODO}
+}
 ```
 
 ## Abstract
