@@ -7,7 +7,7 @@ import Trixi:
     boundary_condition_slip_wall,
     have_nonconservative_terms,
     prim2cons,
-    cons2entropy, max_abs_speeds, entropy
+    cons2entropy, max_abs_speeds, entropy, energy_total
 
 # By default, Julia/LLVM does not use fused multiply-add operations (FMAs).
 # Since these FMAs can increase the performance of many numerical algorithms,

@@ -7,7 +7,7 @@ using Optim
 include("equations/polynomial_equations.jl")
 ###############################################################################
 
-function initial_condition_linear_stability(x, t, equation::PolynomialEquation1D)
+function initial_condition_polynomial_equation(x, t, equation::PolynomialEquation1D)
     RealT = eltype(x)
     #k = 1
     #return SVector(2 + sinpi(k * (x[1] - convert(RealT, 0.7))))
@@ -35,7 +35,7 @@ function run_2(polydeg, m, n, bool)
         initial_refinement_level=5,
         n_cells_max=10_000)
 
-    semi = SemidiscretizationHyperbolic(mesh, equations, initial_condition_linear_stability,
+    semi = SemidiscretizationHyperbolic(mesh, equations, initial_condition_polynomial_equation,
         solver)
     r = m + n
     f(x) = n * (r - 1) * pi * sinpi(x)^(r - 2) * cospi(x)
@@ -54,7 +54,7 @@ function run_2(polydeg, m, n, bool)
     analysis_callback = AnalysisCallback(semi, interval=analysis_interval,
         extra_analysis_errors=(:l2_error_primitive,
             :linf_error_primitive), extra_analysis_integrals=(entropy, velocity), save_analysis=true,
-        output_directory=pwd() * "/results/numerical_2/",
+        output_directory=joinpath(@__DIR__, "results", "numerical_2"),
         analysis_filename="data_$(polydeg)_$(m)_$(n)_$(bool).dat",)
 
     alive_callback = AliveCallback(analysis_interval=analysis_interval)
@@ -69,7 +69,7 @@ function run_2(polydeg, m, n, bool)
     ###############################################################################
     # run the simulation
 
-    sol = solve(ode, SSPRK43();
+    sol = solve(ode, SSPRK43(thread=Trixi.True());
         dt=0.01, # solve needs some value here but it will be overwritten by the stepsize_callback
         ode_default_options()..., callback=callbacks, adaptive=false)
 
@@ -92,11 +92,13 @@ for polydeg in polydegs
 end
 
 
+@info "Detailed raw data saved in results/numerical_2/data_*.dat"
+
 using Printf
 
 using DelimitedFiles
 
-function compute_tables(polydegs, ms, ns, bools; basepath=pwd())
+function compute_tables(polydegs, ms, ns, bools; basepath=@__DIR__)
 
     tables = Dict()
 
@@ -110,7 +112,7 @@ function compute_tables(polydegs, ms, ns, bools; basepath=pwd())
         for p in polydegs
 
             filename = joinpath(basepath,
-                "results/numerical_2",
+                "results", "numerical_2",
                 "data_$(p)_$(m)_$(n)_$(vbool).dat")
 
             data = readdlm(filename, skipstart=1)
@@ -131,4 +133,5 @@ function compute_tables(polydegs, ms, ns, bools; basepath=pwd())
     return tables
 end
 
+@info "The following variable `table` is indexed by `(m, n, only_nonconservative)` and contains the following data: polynomial degree, fully-discrete entropy change, semi-disrete entropy change, total mass"
 table = compute_tables(polydegs, ms, ns, bools)

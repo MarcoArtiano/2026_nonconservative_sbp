@@ -140,7 +140,7 @@ function main(equations, surface_flux, volume_flux, T, filename, trees_per_cube_
 
     analysis_interval = 100
     analysis_callback = AnalysisCallback(semi, interval=analysis_interval, extra_analysis_integrals=(entropy,), save_analysis=true,
-        output_directory=pwd() * "/results/baroclinic/",
+        output_directory=joinpath(@__DIR__, "results", "baroclinic"),
         analysis_filename="data_$(polydeg)_$(trees_per_cube_face[1])x$(trees_per_cube_face[2])_$(T).dat",)
 
     alive_callback = AliveCallback(analysis_interval=analysis_interval)
@@ -169,8 +169,6 @@ function main(equations, surface_flux, volume_flux, T, filename, trees_per_cube_
 end
 
 function run_baroclinic(; T, trees_per_cube_face=(8, 4), polydeg=5, RealT=Float64)
-    # folder = pwd() * "/test_cases/baroclinic/data/"
-
     surface_flux = flux_surface_combined
     volume_flux = flux_volume_ec_combined
     equations = CompressibleEulerInternalEnergyEquationsWithGravity3D(c_p=1004,

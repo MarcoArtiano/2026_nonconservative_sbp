@@ -11,9 +11,9 @@ using OrdinaryDiffEqSSPRK
 # bottom topography function for a fully wet configuration
 
 equations = EscalanteSainteMarieEquations1D(gravity=1.0, b0=0.1)
-alpha1 = 1/2
-alpha2 = 1
-alpha3 = 2/3
+const alpha1 = 1/2
+const alpha2 = 1
+const alpha3 = 2/3
 
 function initial_condition_periodic(x, t, equations::EscalanteSainteMarieEquations1D)
     h = 1 + exp(sinpi(2 * x[1]))
@@ -29,56 +29,57 @@ initial_condition = initial_condition_periodic
 ###############################################################################
 # Get the DG approximation space
 function run_1(polydeg)
-volume_flux = (flux_conservative, flux_nonconservative)
-surface_flux = (flux_conservative, flux_nonconservative)
-solver = DGSEM(polydeg=polydeg, surface_flux=surface_flux,
-    volume_integral=VolumeIntegralFluxDifferencing(volume_flux))
-boundary_condition = BoundaryConditionDirichlet(initial_condition)
-###############################################################################
-# Get the TreeMesh and setup a periodic mesh
-coordinates_min = 0.0
-coordinates_max = 1.0
-mesh = TreeMesh(coordinates_min, coordinates_max,
-    initial_refinement_level=7,
-    n_cells_max=10_000,
-    periodicity=true)
+    volume_flux = (flux_conservative, flux_nonconservative)
+    surface_flux = (flux_conservative, flux_nonconservative)
+    solver = DGSEM(polydeg=polydeg, surface_flux=surface_flux,
+        volume_integral=VolumeIntegralFluxDifferencing(volume_flux))
+    boundary_condition = BoundaryConditionDirichlet(initial_condition)
+    ###############################################################################
+    # Get the TreeMesh and setup a periodic mesh
+    coordinates_min = 0.0
+    coordinates_max = 1.0
+    mesh = TreeMesh(coordinates_min, coordinates_max,
+        initial_refinement_level=7,
+        n_cells_max=10_000,
+        periodicity=true)
 
-# Create the semi discretization object
-semi = SemidiscretizationHyperbolic(mesh, equations, initial_condition, solver, source_terms = source_terms_escalante)
+    # Create the semi discretization object
+    semi = SemidiscretizationHyperbolic(mesh, equations, initial_condition, solver, source_terms = source_terms_escalante)
 
-###############################################################################
-# ODE solver
-tspan = (0.0, 0.1)
-ode = semidiscretize(semi, tspan)
+    ###############################################################################
+    # ODE solver
+    tspan = (0.0, 0.1)
+    ode = semidiscretize(semi, tspan)
 
-###############################################################################
-# Callbacks
+    ###############################################################################
+    # Callbacks
 
-summary_callback = SummaryCallback()
+    summary_callback = SummaryCallback()
 
-analysis_interval = 1000
-analysis_callback = AnalysisCallback(semi, interval=analysis_interval, extra_analysis_integrals = (entropy, ), save_analysis = true,
-			output_directory = pwd() * "/results/escalante_sainte_marie/",
-			analysis_filename = "data_$(polydeg).dat",)
+    analysis_interval = 1000
+    analysis_callback = AnalysisCallback(semi, interval=analysis_interval, extra_analysis_integrals = (entropy, ), save_analysis = true,
+                output_directory = joinpath(@__DIR__, "results", "escalante_sainte_marie"),
+                analysis_filename = "data_$(polydeg).dat",)
 
-alive_callback = AliveCallback(analysis_interval=analysis_interval)
+    alive_callback = AliveCallback(analysis_interval=analysis_interval)
 
-stepsize_callback = StepsizeCallback(cfl=0.1)
+    stepsize_callback = StepsizeCallback(cfl=0.1)
 
-callbacks = CallbackSet(
-    summary_callback,
-    analysis_callback,
-    alive_callback,
-    stepsize_callback
-)
+    callbacks = CallbackSet(
+        summary_callback,
+        analysis_callback,
+        alive_callback,
+        stepsize_callback
+    )
 
-###############################################################################
-# run the simulation
+    ###############################################################################
+    # run the simulation
 
-sol = solve(ode,
-    SSPRK43();
-    dt=1.0, # solve needs some value here but it will be overwritten by the stepsize_callback
-    ode_default_options()..., callback=callbacks, adaptive=false);
+    sol = solve(ode,
+        SSPRK43(thread=Trixi.True());
+        dt=1.0, # solve needs some value here but it will be overwritten by the stepsize_callback
+        ode_default_options()..., callback=callbacks, adaptive=false);
+    return sol
 end
 
 
@@ -87,13 +88,15 @@ for polydeg in polydegs
 	run_1(polydeg)
 end
 
+@info "Detailed raw data saved in results/escalante_sainte_marie/data_*.dat"
+
 using DelimitedFiles
 
-function compute_table(polydegs; basepath=pwd())
+function compute_table(polydegs; basepath=@__DIR__)
     table = zeros(length(polydegs), 3)
 
     for (i, p) in enumerate(polydegs)
-        filename = joinpath(basepath, "results/escalante_sainte_marie", "data_$(p).dat")
+        filename = joinpath(basepath, "results", "escalante_sainte_marie", "data_$(p).dat")
         data = readdlm(filename, skipstart=1)
 
         U = data[:, end]
@@ -109,4 +112,5 @@ function compute_table(polydegs; basepath=pwd())
     return table
 end
 
+@info "Results: polynomial degree, fully-discrete entropy change, semi-disrete entropy change"
 table = compute_table(polydegs)'
