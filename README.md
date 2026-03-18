@@ -35,3 +35,11 @@ First, you need to download this repository, e.g., by cloning it with git or by 
 ## Authors
 - Marco Artiano
 - [Hendrik Ranocha](https://ranocha.de/) (Johannes Gutenberg University Mainz, Germany)
+
+## License
+
+The code in this repository is published under the MIT license, see the `LICENSE` file.
+
+## Disclaimer
+
+Everything is provided as is and without warranty. Use at your own risk!
