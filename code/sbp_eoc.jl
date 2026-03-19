@@ -20,6 +20,11 @@ function convergence_tests_curvilinear_2d_euler(; latex=false)
     _convergence_tests_curvilinear_2d_euler(; mesh_file_name, num_nodes,
         accuracy_order, latex)
 
+    accuracy_order = 6
+    @info "2D compressible Euler equations" accuracy_order
+    _convergence_tests_curvilinear_2d_euler(; mesh_file_name, num_nodes,
+        accuracy_order, latex)
+
     accuracy_order = 8
     @info "2D compressible Euler equations" accuracy_order
     _convergence_tests_curvilinear_2d_euler(; mesh_file_name, num_nodes,
