@@ -11,11 +11,11 @@ This repository contains information and code to reproduce the results presented
          Well-Balanced Methods for Nonconservative Hyperbolic Systems},
   author={Artiano, Marco and Ranocha, Hendrik},
   year={2026},
-  month={TODO},
-  eprint={TODO},
+  month={03},
+  eprint={2603.18978},
   eprinttype={arxiv},
-  eprintclass={TODO},
-  doi={TODO}
+  eprintclass={math.NA},
+  doi={10.48550/arXiv.2603.18978}
 }
 ```
 
