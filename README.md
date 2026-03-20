@@ -1,7 +1,7 @@
 # On Affordable High-Order Entropy-Conservative/Stable and Well-Balanced Methods for Nonconservative Hyperbolic Systems
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-success.svg)](https://opensource.org/licenses/MIT)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19112276.svg)](https://zenodo.org/doi/10.5281/zenodo.19112276)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19112275.svg)](https://zenodo.org/doi/10.5281/zenodo.19112275)
 
 This repository contains information and code to reproduce the results presented in the article
 
@@ -29,7 +29,7 @@ If you find these results useful, please cite the article mentioned above. If yo
   author={Artiano, Marco and Ranocha, Hendrik},
   year={2026},
   howpublished={\url{https://github.com/MarcoArtiano/2026_nonconservative_sbp}},
-  doi={10.5281/zenodo.19112276}
+  doi={10.5281/zenodo.19112275}
 }
 ```
 
