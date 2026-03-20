@@ -35,7 +35,7 @@ If you find these results useful, please cite the article mentioned above. If yo
 
 ## Abstract
 Many entropy-conservative and entropy-stable (summarized as entropy-preserving) methods for hyperbolic conservation laws rely on Tadmor's theory for two-point entropy-preserving numerical fluxes and its higher-order extension via flux differencing using summation-by-parts (SBP) operators, e.g., in discontinuous Galerkin spectral element methods (DGSEMs).
-The underlying two-point formulations have been extended to nonconservative systems using fluctuations by Castro et al. (2013, [doi:10.1137/110845379](https://doi.org/doi/10.1137/110845379)) with follow-up generalizations to SBP methods.
+The underlying two-point formulations have been extended to nonconservative systems using fluctuations by Castro et al. (2013, [doi:10.1137/110845379](https://doi.org/10.1137/110845379)) with follow-up generalizations to SBP methods.
 We propose specific forms of entropy-preserving fluctuations for nonconservative hyperbolic systems that are simple to interpret and allow an algorithmic construction of entropy-preserving methods.
 We analyze necessary and sufficient conditions, and obtain a full characterization of entropy-preserving three-point methods within the finite volume framework.
 This formulation is extended to SBP methods in multiple space dimensions on Cartesian and curvilinear meshes.
